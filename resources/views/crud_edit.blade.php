@@ -11,7 +11,7 @@
 </head>
     <body>
 
-    <form action="{{ route('crud.update',$crud->id) }}" method="POST">
+    <form action="{{ route('crud.update',$crud->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -70,6 +70,8 @@
 
   <div class="col-sm-10">
   <a class="image-link" href="{{ asset('images/' . $crud->docs) }}"><img src="/images/docs.jpg" class="img-responsive" loading="lazy" height="45px" width="45px"></a>
+
+  <input type="hidden" name="hidden_docs" value="{{ $crud->docs}}" />
                                             </div>
                                             </div>
 </div>

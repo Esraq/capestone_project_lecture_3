@@ -135,70 +135,91 @@ class CrudController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $request->validate([
-
-            'name' => 'required|min:1',
-      
-            'email' => 'required|email|unique:users,email',
-            
-            'password' => 'required|confirmed|min:6',
-
-            'photo' => 'required|mimes:jpeg,png,jpg,gif',
-            
-            ]
-           
         
+       
+
+
+       $photo=$request->get('photo');
+       $document=$request->get('docs');
+         
+
+       if($photo==NULL || $document==NULL )
+       {
+
+            
+        $form_data = array(
+            
+            'name'       =>   $request->name,
+            'email'        =>  $request->email
         );
-        
-             
-        $imageName = time().'.'.$request->photo->extension();    
-        $request->photo->move(public_path('images'), $imageName);
-     
-             
-        $documents = time().'.'.$request->docs->extension();    
-        $request->docs->move(public_path('images'), $documents);    
-             
-             
-       /*     
 
-      
-        if($request->hasfile('photo'))
-            {
-            $file = $request->file('photo');
-            $name=time().$file->getClientOriginalName();
-            $file->move(public_path().'public/images/', $name);
-           }
+        Crud::whereId($id)->update($form_data);
+        return redirect('/crud_view')->with('success', true);
+
+        }
+        else{
+
+         
 
 
-           */
-         /*  if($request->hasfile('docs'))
-           {
-           $docs = $request->file('docs');
-           $document=time().$file->getClientOriginalName();
-           $docs->move(public_path().'public/images/', $document);
-          }
+            $a=$request->photo;
 
-*/
-            $crud=new Crud;
+            echo $a;
+           
 
+            /*
+
+            $imageName = time().'.'.$request->photo->extension();    
+            $request->photo->move(public_path('images'), $imageName);
+         
+                 
+            $documents = time().'.'.$request->docs->extension();    
+            $request->docs->move(public_path('images'), $documents);    
+
+
+
+
+
+
+
+
+            $form_data = array(
             
-            $crud->name=$request->get('name');
+                'name'       =>   $request->name,
+                'email'        =>  $request->email,
+                'photo'       => $imageName,
+                'docs' =>$request->$documents
 
-            $crud->email=$request->get('email');
-      
-            $crud->password=$request->get('password');
-      
-            $crud->photo=$imageName;
-            
-             
-            $crud->docs=$documents;
-
-        
-      
-            $crud->update();
-            
+            );
+    
+            Crud::whereId($id)->update($form_data);
             return redirect('/crud_view')->with('success', true);
+         */
+          
+
+
+
+        }
+       
+       
+      
+       
+
+        
+
+
+
+    
     }
+        
+    
+          
+
+    
+       
+
+            
+
 
     /**
      * Remove the specified resource from storage.
