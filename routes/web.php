@@ -2,20 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-
-use App\Http\Controllers\HelloController;
-
-use App\Http\Controllers\HomeController;
-
-
-use App\Http\Controllers\AboutController;
-
-
-use App\Http\Controllers\useContactController;
-
-use App\Http\Controllers\CrudController;
-
-use App\Http\Controllers\CrudViewController;
+use App\Http\Controllers\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,19 +15,9 @@ use App\Http\Controllers\CrudViewController;
 |
 */
 
-
-///Route::get('/','App/Http/Controllers/HelloController@hello');
-
-///Route::get('/', [HelloController::class, 'hello']);
-
-
-Route::get('/', [HomeController::class,'index']);
-
-Route::get('/about', [AboutController::class,'index']);
-
-Route::get('/contact', [ContactController::class,'index']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
-Route::Resource('/crud',CrudController::class);
-
-Route::Resource('/crud_view',CrudViewController::class);
+Route::resource('products', ProductController::class);
